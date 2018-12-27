@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Авторизация</h3>
+
+                {% if error %}
+                    <span style="color: red">{{ error.messageKey }}</span>
+                {% endif %}
+                <form action="{{ path("login") }}" method="POST">
+                    <div class="form-group">
+                        <label>Имя пользователя</label>
+                        <input type="text" name="_username" value="{{ last_username }}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input type="text" name="_password" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Вход</button>
+                </form>
+            </div>
+        </div>
+
+{% endblock %}

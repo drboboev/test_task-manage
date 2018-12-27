@@ -1,0 +1,24 @@
+{% extends "admin/index.html.twig" %}
+
+{% block admin_content %}
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{{ path("task-list") }}" class="btn btn-primary">Назад</a>
+        </div>
+    </div>
+    <hr>
+    <dl class="row">
+        <dt class="col-sm-3">Название задачи</dt>
+        <dd class="col-sm-9">{{ task.title }}</dd>
+        <dt class="col-sm-3">Описание задачи</dt>
+        <dd class="col-sm-9">{{ task.description }}</dd>
+        <dt class="col-sm-3">Последнее изменение</dt>
+        <dd class="col-sm-9">{{ task.updatedat|date }}</dd>
+        <dt class="col-sm-3">Срок до</dt>
+        <dd class="col-sm-9">{{ task.duedate|date }}</dd>
+        <dt class="col-sm-3">Статус</dt>
+        <dd class="col-sm-9">{{ task.status.title }}</dd>
+    </dl>
+
+{% endblock %}

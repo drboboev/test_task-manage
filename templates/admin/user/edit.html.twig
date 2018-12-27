@@ -1,0 +1,28 @@
+{% extends "admin/index.html.twig" %}
+
+{% block admin_content %}
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{{ path("user-list") }}" class="btn btn-primary">Назад</a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_start(form) }}
+            <span style="color: red;">
+                {{ form_errors(form) }}
+            </span>
+            <div class="form-group">
+                {{ form_label(form.username) }}
+                {{ form_widget(form.username) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.save) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

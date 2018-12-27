@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="{{ path("index") }}" class="btn btn-primary">Назад</a>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <dl class="row">
+                        <dt class="col-sm-3">Название задачи</dt>
+                        <dd class="col-sm-9">{{ task.title }}</dd>
+                        <dt class="col-sm-3">Описание задачи</dt>
+                        <dd class="col-sm-9">{{ task.description }}</dd>
+                        <dt class="col-sm-3">Последнее изменение</dt>
+                        <dd class="col-sm-9">{{ task.updatedat|date }}</dd>
+                        <dt class="col-sm-3">Срок до</dt>
+                        <dd class="col-sm-9">{{ task.duedate|date }}</dd>
+                        <dt class="col-sm-3">Статус</dt>
+                        <dd class="col-sm-9">
+                            {{ form_start(form) }}
+                            {{ form_widget(form.status) }}
+                        </dd>
+                    </dl>
+                    {{ form_widget(form.save) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

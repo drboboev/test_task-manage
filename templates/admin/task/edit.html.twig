@@ -1,0 +1,40 @@
+{% extends "admin/index.html.twig" %}
+
+{% block admin_content %}
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{{ path("task-list") }}" class="btn btn-primary">Назад</a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_start(form) }}
+            <span style="color: red;">
+                {{ form_errors(form) }}
+            </span>
+            <div class="form-group">
+                {{ form_label(form.title) }}
+                {{ form_widget(form.title) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.due_date) }}
+                {{ form_widget(form.due_date) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.status) }}
+                {{ form_widget(form.status) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.save) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

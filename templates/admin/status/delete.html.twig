@@ -1,0 +1,25 @@
+{% extends "admin/index.html.twig" %}
+
+{% block admin_content %}
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{{ path("status-list") }}" class="btn btn-primary">Назад</a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_start(form) }}
+            <span style="color: red;">
+                {{ form_errors(form) }}
+            </span>
+            Вы уверены что хотите удалить статус?
+            <div class="form-group">
+                {{ form_widget(form.submit) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,75 @@
+index:
+    path: /
+    controller: App\Controller\MainController::index
+
+task_view:
+    path: /task/view/{id}
+    controller: App\Controller\MainController:task_view
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController:login
+logout:
+    path: /logout
+    controller: App\Controller\SecurityController:logout
+
+admin:
+    path: /admin
+    controller: App\Controller\AdminController:index
+
+
+task-list:
+    path: /admin/task/list
+    controller: App\Controller\TaskController:list
+
+task-view:
+    path: /admin/task/view/{id}
+    controller: App\Controller\TaskController:view
+
+task-add:
+    path: /admin/task/add
+    controller: App\Controller\TaskController:add
+
+task-edit:
+    path: /admin/task/edit/{id}
+    controller: App\Controller\TaskController:edit
+
+task-delete:
+    path: /admin/task/delete/{id}
+    controller: App\Controller\TaskController:delete
+
+
+
+status-list:
+    path: /admin/status/list
+    controller: App\Controller\StatusController:list
+
+status-add:
+    path: /admin/status/add
+    controller: App\Controller\StatusController:add
+
+status-edit:
+    path: /admin/status/edit/{id}
+    controller: App\Controller\StatusController:edit
+
+status-delete:
+    path: /admin/status/delete/{id}
+    controller: App\Controller\StatusController:delete
+
+
+
+user-list:
+    path: /admin/user/list
+    controller: App\Controller\UserController:list
+
+user-view:
+    path: /admin/user/view/{id}
+    controller: App\Controller\UserController:view
+
+user-add:
+    path: /admin/user/add
+    controller: App\Controller\UserController:add
+
+user-edit:
+    path: /admin/user/edit/{id}
+    controller: App\Controller\UserController:edit

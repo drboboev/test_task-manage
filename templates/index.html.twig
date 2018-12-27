@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            {% if tasks %}
+            <table class="table table-stripped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Наименование задачи</th>
+                    <th scope="col">Дата создания</th>
+                    <th scope="col">Срок выполнения</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for task in tasks %}
+                    <td scope="row"></td>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.createdat|date }}</td>
+                    <td>{{ task.duedate|date }}</td>
+                    <td>{{ task.status.title }}</td>
+                    <td>
+                        <a href="{{ path("task_view", {id: task.id}) }}" class="btn btn-sm btn-success">Просмотр</a>
+                    </td>
+
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+                Нет задач
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

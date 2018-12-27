@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{{ path("task-list") }}" class="btn btn-primary">Список задач</a>
+            <a href="{{ path("status-list") }}" class="btn btn-primary">Список статусов</a>
+            <a href="{{ path("user-list") }}" class="btn btn-primary">Список пользователей</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% block admin_content %} {% endblock %}
+        </div>
+    </div>
+
+{% endblock %}

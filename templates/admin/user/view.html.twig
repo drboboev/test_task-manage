@@ -1,0 +1,16 @@
+{% extends "admin/index.html.twig" %}
+
+{% block admin_content %}
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{{ path("user-list") }}" class="btn btn-primary">Назад</a>
+        </div>
+    </div>
+    <hr>
+    <dl class="row">
+        <dt class="col-sm-3">Имя пользователя</dt>
+        <dd class="col-sm-9">{{ user.username }}</dd>
+    </dl>
+
+{% endblock %}
