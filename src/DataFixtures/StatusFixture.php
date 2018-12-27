@@ -17,10 +17,13 @@ class StatusFixture extends Fixture
             "Выполнено"
         ];
 
+        $i = 0;
         foreach ($statuses as $s) {
             $status = new Status();
             $status->setTitle($s);
+            $status->setSort($i);
             $manager->persist($status);
+            $i++;
         }
 
         $manager->flush();

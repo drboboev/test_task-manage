@@ -6,7 +6,10 @@ namespace App\Controller;
 use App\Entity\Status;
 use Doctrine\Common\Persistence\ObjectManager;
 use const Grpc\STATUS_ABORTED;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,7 +19,7 @@ class StatusController extends AbstractController
 {
     public function list(ObjectManager $manager)
     {
-        $statuses = $manager->getRepository(Status::class)->findAll();
+        $statuses = $manager->getRepository(Status::class)->findBy([], ["sort" => "ASC"]);
 
         return $this->render("admin/status/list.html.twig", [
             "statuses" => $statuses
@@ -27,9 +30,21 @@ class StatusController extends AbstractController
     {
         $status = new Status();
 
+        $statuses = $manager->getRepository(Status::class)->findBy([], ["sort" => "ASC"]);
+        $sort = [];
+
+        foreach($statuses as $s) {
+            $sort[$s->getTitle()] = $s->getId();
+        }
+
         $form = $this->createFormBuilder($status)
             ->add("title", TextType::class, [
                 "label" => "Название статуса",
+                "attr" => ["class" => "form-control"]
+            ])
+            ->add("sort", ChoiceType::class, [
+                "choices" => $sort,
+                "label" => "Разместить после",
                 "attr" => ["class" => "form-control"]
             ])
             ->add("save", SubmitType::class, [
@@ -49,6 +64,17 @@ class StatusController extends AbstractController
             if ($check) {
                 $form->addError(new FormError("Такой статус уже существует"));
             } else {
+                $sort = $status->getSort();
+                $status->setSort($sort);
+                $i = $sort;
+                foreach ($statuses as $s) {
+                    if ($s->getSort() >= $sort) {
+                        $i++;
+                        $s->setSort($i);
+                        $manager->persist($s);
+                    }
+                }
+
                 $manager->persist($status);
                 $manager->flush();
 
@@ -65,9 +91,24 @@ class StatusController extends AbstractController
     {
         $status = $manager->getRepository(Status::class)->find($id);
 
+        $statuses = $manager->getRepository(Status::class)->findBy([], ["sort" => "ASC"]);
+        $sort = [];
+
+        foreach($statuses as $s) {
+            if ($s->getTitle() === $status->getTitle()) {
+                continue;
+            }
+            $sort[$s->getTitle()] = $s->getId();
+        }
+
         $form = $this->createFormBuilder($status)
             ->add("title", TextType::class, [
                 "label" => "Название статуса",
+                "attr" => ["class" => "form-control"]
+            ])
+            ->add("sort", ChoiceType::class, [
+                "choices" => $sort,
+                "label" => "Разместить после",
                 "attr" => ["class" => "form-control"]
             ])
             ->add("save", SubmitType::class, [
@@ -87,8 +128,18 @@ class StatusController extends AbstractController
             if ($check) {
                 $form->addError(new FormError("Такой статус уже существует"));
             } else {
+                $sort = $status->getSort();
+                $status->setSort($sort);
                 $manager->persist($status);
                 $manager->flush();
+                $i = $sort;
+                foreach ($statuses as $s) {
+                    if ($s->getSort() > $sort) {
+                        $i++;
+                        $s->setSort($i);
+                        $manager->persist($s);
+                    }
+                }
 
                 return $this->redirectToRoute("status-list");
             }

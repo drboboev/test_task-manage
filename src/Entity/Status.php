@@ -21,6 +21,11 @@ class Status
      */
     private $title;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $sort;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,6 +39,18 @@ class Status
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getSort(): ?int
+    {
+        return $this->sort;
+    }
+
+    public function setSort(int $sort): self
+    {
+        $this->sort = $sort;
 
         return $this;
     }
